@@ -28,6 +28,7 @@ plot(x, y, xlab="Coordinate 1", ylab="Coordinate 2",
 text(x, y, labels = row.names(mydata), cex=.7) 
 
 ## Laplacian Eigenmaps
+#install.packages("dimRed")
 dat <- loadDataSet("3D S Curve")
 leim <- LaplacianEigenmaps()
 emb <- leim@fun(dat, leim@stdpars)
