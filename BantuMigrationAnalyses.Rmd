@@ -13,6 +13,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r dataload}
 ## Load in YChr, mtDNA, and Cultural data
 ## Load in tree files
+library(ape)
+library(Biostrings)
+ychrdata <- read.nexus("C:/Users/Colby Ford/Dropbox/ChrY.Bantu542/ChrY.Bantu542.10062017simple.consensus.nex")
+mtdnadata <- readDNAStringSet("C:/Users/Colby Ford/Dropbox/mt_over_Bantu542/with-outgroups/mafft/mt_over_Bantu542_newID.mafft.dantrim.out.fasta")
+culturaldata <- read.nexus("C:/Users/Colby Ford/Dropbox/BantuBantoid_Culture/colby-run/BantuBantoid_Culture_MX.nexus")
+
+combinedpoyoutput <- read.nexus("C:/Users/Colby Ford/Dropbox/Bantu_CombinedData_dan/forthtry/my_100repEfi_trees_GuthrieZones.root800jaghams4try.nex")
+
 ```
 
 
