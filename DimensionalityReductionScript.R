@@ -54,10 +54,6 @@ rm(DummyCodedCombinedData)
 gc()
 
 
-=======
-DummyCodedCombinedData <- as.data.frame(lapply(SepCombinedData, dummy.code))
->>>>>>> parent of 05c0ee7... Update DR Script and Add Combined Data
-
 ## Multidimensional Scaling
 MDS_Combined_2 <- cmdscale(dist(DummyCodedCombinedData[1:100,1:25]), eig=TRUE, k=2) # Dimensions
 MDS_Combined_2 # view results
