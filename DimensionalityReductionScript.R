@@ -43,7 +43,7 @@ DummyCodedCombinedData <- cbind(SepCombinedData[,1:5],
 DummyCodedCombinedData <- DummyCodedCombinedData %>% 
   dplyr::select(-starts_with("X")) #Remove Variable With Only 1 Value (Starts with X)
 write_csv(DummyCodedCombinedData, "datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_InnerJoin_DummyCoded.csv", append = FALSE)
-#DummyCodedCombinedData <- read_csv("DimensionalityReduction_CombinedData_InnerJoin_DummyCoded.csv")
+#DummyCodedCombinedData <- read_csv("datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_InnerJoin_DummyCoded.csv")
 
 ## Clean Up Memory
 rm(SepCombinedData)
@@ -56,7 +56,7 @@ CollapsedDummyCodedCombinedData <- DummyCodedCombinedData %>%
   summarise_all(mean)
 
 write_csv(CollapsedDummyCodedCombinedData, "datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_InnerJoin_DummyCoded_TaxaID_Collapsed.csv", append = FALSE)
-#CollapsedDummyCodedCombinedData <- as.data.frame(read_csv("DimensionalityReduction_CombinedData_InnerJoin_DummyCoded_TaxaID_Collapsed.csv"))
+#CollapsedDummyCodedCombinedData <- as.data.frame(read_csv("datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_InnerJoin_DummyCoded_TaxaID_Collapsed.csv"))
 rownames(CollapsedDummyCodedCombinedData) <- CollapsedDummyCodedCombinedData$TaxaID
 CollapsedDummyCodedCombinedData$TaxaID <- NULL
 
