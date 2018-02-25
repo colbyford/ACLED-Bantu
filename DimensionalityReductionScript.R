@@ -41,7 +41,7 @@ DummyStartLoc <- which(colnames(DummyCodedCombinedData)=="Cultural.pos1.1")
 DummyCodedCombinedData <- cbind(SepCombinedData[,1:5],
                                 DummyCodedCombinedData[,DummyStartLoc:ncol(DummyCodedCombinedData)]) #Append Data
 DummyCodedCombinedData <- DummyCodedCombinedData %>% 
-  select(-starts_with("X")) #Remove Variable With Only 1 Value (Starts with X)
+  dplyr::select(-starts_with("X")) #Remove Variable With Only 1 Value (Starts with X)
 write_csv(DummyCodedCombinedData, "datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_InnerJoin_DummyCoded.csv", append = FALSE)
 #DummyCodedCombinedData <- read_csv("DimensionalityReduction_CombinedData_InnerJoin_DummyCoded.csv")
 
@@ -51,7 +51,7 @@ gc()
 
 ## Collapse Data By TaxaID
 CollapsedDummyCodedCombinedData <- DummyCodedCombinedData %>% 
-  select(-GuthrieZone, -CulturalTaxa, -mtDNATaxa, -YchrTaxa) %>% 
+  dplyr::select(-GuthrieZone, -CulturalTaxa, -mtDNATaxa, -YchrTaxa) %>% 
   group_by(TaxaID) %>% 
   summarise_all(mean)
 
