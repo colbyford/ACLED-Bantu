@@ -56,28 +56,21 @@ CollapsedDummyCodedCombinedData <- DummyCodedCombinedData %>%
   summarise_all(mean)
 
 write_csv(CollapsedDummyCodedCombinedData, "datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_InnerJoin_DummyCoded_TaxaID_Collapsed.csv", append = FALSE)
-#CollapsedDummyCodedCombinedData <- as.data.frame(read_csv("datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_InnerJoin_DummyCoded_TaxaID_Collapsed.csv"))
+#CollapsedDummyCodedCombinedData <- as.data.frame(read_csv("datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_OuterJoin_DummyCoded_TaxaID_Collapsed.csv"))
 rownames(CollapsedDummyCodedCombinedData) <- CollapsedDummyCodedCombinedData$TaxaID
 CollapsedDummyCodedCombinedData$TaxaID <- NULL
+CollapsedDummyCodedCombinedData$GuthrieZone <- NULL
+CollapsedDummyCodedCombinedData$CulturalTaxa <- NULL
+CollapsedDummyCodedCombinedData$mtDNATaxa <- NULL
+CollapsedDummyCodedCombinedData$YchrTaxa <- NULL
 
 ## Clean Up Memory
 rm(DummyCodedCombinedData)
 gc()
 
 ## Multidimensional Scaling
-## Classical MDS
-MDS_Classical_Combined_2 <- cmdscale(dist(CollapsedDummyCodedCombinedData), eig=TRUE, k=2) #2 Dimensions
-MDS_Classical_Combined_2 # view results
-
-# plot solution 
-x <- MDS_Classical_Combined_2$points[,1]
-y <- MDS_Classical_Combined_2$points[,2]
-plot(x, y, xlab="Coordinate 1", ylab="Coordinate 2", 
-     main="Metric	MDS",	type="n")
-text(x, y, labels = row.names(CollapsedDummyCodedCombinedData), cex=.7)
-
 ## Non-Metric MDS
-MDS_NonMetric_Combined_2 <- isoMDS(dist(CollapsedDummyCodedCombinedData),
+MDS_NonMetric_Combined <- isoMDS(dist(CollapsedDummyCodedCombinedData),
                                    y = cmdscale(dist(CollapsedDummyCodedCombinedData),
                                                 k = 2),
                                    k = 2,
@@ -85,6 +78,9 @@ MDS_NonMetric_Combined_2 <- isoMDS(dist(CollapsedDummyCodedCombinedData),
                                    trace = TRUE,
                                    tol = 1e-3,
                                    p = 2)
-write_csv(as.data.frame(MDS_NonMetric_Combined_2$points),"datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_InnerJoin_DummyCoded_TaxaID_Collapsed_Non-MetricMDS-2.csv")
+MDS_NonMetric_Combined_Points <- as.data.frame(MDS_NonMetric_Combined$points)
+MDS_NonMetric_Combined_Points$TaxaID <- rownames(CollapsedDummyCodedCombinedData)
+colnames(MDS_NonMetric_Combined_Points) <- c("x","y","TaxaID")
+write_csv(as.data.frame(MDS_NonMetric_Combined_Points),"datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_OuterJoin_DummyCoded_TaxaID_Collapsed_Non-MetricMDS-2.csv")
 MDS_NonMetric_Combined_2_Shep <- Shepard(dist(CollapsedDummyCodedCombinedData), MDS_NonMetric_Combined_2$points)
 plot(MDS_NonMetric_Combined_2_Shep)
