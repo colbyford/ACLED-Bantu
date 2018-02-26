@@ -9,8 +9,9 @@ library(dplyr)
 library(purrr)
 library(psych)
 library(MASS)
-library(ggplot2)
+library(dimRed)
 
+####################################################################
 ## Input as Table
 CombinedData <- read_csv("datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_InnerJoin.csv") #Inner Join Data
 #CombinedData <- read_csv("datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_OuterJoin.csv") #Outer Join Data
@@ -56,8 +57,8 @@ CollapsedDummyCodedCombinedData <- DummyCodedCombinedData %>%
   summarise_all(mean)
 
 write_csv(CollapsedDummyCodedCombinedData, "datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_InnerJoin_DummyCoded_TaxaID_Collapsed.csv", append = FALSE)
-#CollapsedDummyCodedCombinedData <- as.data.frame(read_csv("datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_OuterJoin_DummyCoded_TaxaID_Collapsed.csv"))
-rownames(CollapsedDummyCodedCombinedData) <- CollapsedDummyCodedCombinedData$TaxaID
+#CollapsedDummyCodedCombinedData <- as.data.frame(read_csv("datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_InnerJoin_DummyCoded_GuthrieZone_Collapsed.csv"))
+rownames(CollapsedDummyCodedCombinedData) <- CollapsedDummyCodedCombinedData$GuthrieZone
 CollapsedDummyCodedCombinedData$TaxaID <- NULL
 CollapsedDummyCodedCombinedData$GuthrieZone <- NULL
 CollapsedDummyCodedCombinedData$CulturalTaxa <- NULL
@@ -68,6 +69,7 @@ CollapsedDummyCodedCombinedData$YchrTaxa <- NULL
 rm(DummyCodedCombinedData)
 gc()
 
+####################################################################
 ## Multidimensional Scaling
 ## Non-Metric MDS
 MDS_NonMetric_Combined <- isoMDS(dist(CollapsedDummyCodedCombinedData),
@@ -78,9 +80,54 @@ MDS_NonMetric_Combined <- isoMDS(dist(CollapsedDummyCodedCombinedData),
                                    trace = TRUE,
                                    tol = 1e-3,
                                    p = 2)
-MDS_NonMetric_Combined_Points <- as.data.frame(MDS_NonMetric_Combined$points)
-MDS_NonMetric_Combined_Points$TaxaID <- rownames(CollapsedDummyCodedCombinedData)
+MDS_NonMetric_Combined_Points <- as.data.frame(MDS_NonMetric_Combined$points) #Extract Points
+MDS_NonMetric_Combined_Points$TaxaID <- rownames(CollapsedDummyCodedCombinedData) #Add Column and Rename
 colnames(MDS_NonMetric_Combined_Points) <- c("x","y","TaxaID")
-write_csv(as.data.frame(MDS_NonMetric_Combined_Points),"datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_OuterJoin_DummyCoded_TaxaID_Collapsed_Non-MetricMDS-2.csv")
+
+write_csv(as.data.frame(MDS_NonMetric_Combined_Points),
+          "datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_InnerJoin_DummyCoded_TaxaID_Collapsed_Non-MetricMDS-2.csv",
+          append = FLASE)
+
+#Shepard Functions for MDS
 MDS_NonMetric_Combined_2_Shep <- Shepard(dist(CollapsedDummyCodedCombinedData), MDS_NonMetric_Combined_2$points)
 plot(MDS_NonMetric_Combined_2_Shep)
+
+####################################################################
+##Laplacian Eigenmaps
+
+#Find optimal number of k in k-nn
+knn_accuracy <- data.frame(k = 0,
+                           accuracy = 0)
+for (k in 1:nrow(CollapsedDummyCodedCombinedData)){
+  knn <- class::knn(CollapsedDummyCodedCombinedData,
+                    CollapsedDummyCodedCombinedData,
+                    rownames(CollapsedDummyCodedCombinedData),
+                    k=2)
+  knn_prop <- prop.table(table(knn, rownames(CollapsedDummyCodedCombinedData)))
+  accuracy <- sum(diag(knn_prop))/sum(knn_prop)
+  iter_accuracy <- data.frame(k = k,
+                   accuracy = accuracy)
+  knn_accuracy <- rbind(iter_accuracy, knn_accuracy)
+}
+
+most_accurate_k <- knn_accuracy[which.max(knn_accuracy$accuracy),]$k
+
+CollapsedDummyCodedCombinedData_dimRed <- dimRedData(CollapsedDummyCodedCombinedData[,1:ncol(CollapsedDummyCodedCombinedData)]) #Convert to dimRed class
+leim <- LaplacianEigenmaps() #S4 Object for LE
+LEpars <- list(ndim = 2, #Define Parameter Set for LE
+               sparse = "knn",
+               knn = most_accurate_k,
+               #eps = 0.1,
+               t = Inf,
+               norm = FALSE)
+
+LE_Combined <- leim@fun(CollapsedDummyCodedCombinedData_dimRed, LEpars)
+LE_Combined_Points <- as.data.frame(LE_Combined@data@data) #Extract Points
+LE_Combined_Points$TaxaID <- rownames(CollapsedDummyCodedCombinedData) #Add Column and Rename
+#colnames(MDS_NonMetric_Combined_Points) <- c("x","y","z","TaxaID")
+
+write_csv(LE_Combined_Points,
+          "datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_InnerJoin_DummyCoded_GuthrieZone_Collapsed_LE-2.csv",
+          append = FALSE)
+
+
