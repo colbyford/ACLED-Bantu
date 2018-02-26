@@ -64,7 +64,6 @@ CollapsedDummyCodedCombinedData$TaxaID <- NULL
 rm(DummyCodedCombinedData)
 gc()
 
-
 ## Multidimensional Scaling
 ## Classical MDS
 MDS_Classical_Combined_2 <- cmdscale(dist(CollapsedDummyCodedCombinedData), eig=TRUE, k=2) #2 Dimensions
@@ -86,5 +85,6 @@ MDS_NonMetric_Combined_2 <- isoMDS(dist(CollapsedDummyCodedCombinedData),
                                    trace = TRUE,
                                    tol = 1e-3,
                                    p = 2)
+write_csv(as.data.frame(MDS_NonMetric_Combined_2$points),"datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_InnerJoin_DummyCoded_TaxaID_Collapsed_Non-MetricMDS-2.csv")
 MDS_NonMetric_Combined_2_Shep <- Shepard(dist(CollapsedDummyCodedCombinedData), MDS_NonMetric_Combined_2$points)
 plot(MDS_NonMetric_Combined_2_Shep)
