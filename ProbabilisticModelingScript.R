@@ -8,8 +8,14 @@ library(readr)
 library(dplyr)
 library(purrr)
 library(psych)
-library(MASS)
-library(dimRed)
+library(caret)
+library(lime)
+library(randomForest)
+
+## Set up Parallelization
+library(doParallel)
+cl <- makeCluster(detectCores())
+registerDoParallel(cl)
 
 ####################################################################
 ## Input as Table
@@ -29,62 +35,26 @@ SepCombinedData <- CombinedData %>%
 ## Remove NA Columns
 SepCombinedData <- SepCombinedData[!is.na(names(SepCombinedData))]
 
+rfSepCombinedData <- SepCombinedData %>% 
+  dplyr::select(-TaxaID, -CulturalTaxa, -mtDNATaxa, -YchrTaxa)
+
 ## Clean Up Memory to Avoid Error
 rm("CombinedData", "Cultural_cols", "mtDNA_cols", "Ychr_cols")
 gc()
 memory.limit(size=99999)
 
-## Dummy Code Each Column and Write to Disk
-DummyCodedCombinedData <- as.data.frame(lapply(SepCombinedData, dummy.code)) #This takes forever
-DummyCodedCombinedData_orig <- DummyCodedCombinedData #Save for testing purposes
-DummyStartLoc <- which(colnames(DummyCodedCombinedData)=="Cultural.pos1.1")
-
-DummyCodedCombinedData <- cbind(SepCombinedData[,1:5],
-                                DummyCodedCombinedData[,DummyStartLoc:ncol(DummyCodedCombinedData)]) #Append Data
-DummyCodedCombinedData <- DummyCodedCombinedData %>% 
-  dplyr::select(-starts_with("X")) #Remove Variable With Only 1 Value (Starts with X)
-write_csv(DummyCodedCombinedData, "datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_InnerJoin_DummyCoded.csv", append = FALSE)
-#DummyCodedCombinedData <- read_csv("datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_InnerJoin_DummyCoded.csv")
-
-## Clean Up Memory
-rm(SepCombinedData)
-gc()
-
-## Collapse Data By TaxaID
-CollapsedDummyCodedCombinedData <- DummyCodedCombinedData %>% 
-  dplyr::select(-GuthrieZone, -CulturalTaxa, -mtDNATaxa, -YchrTaxa) %>% 
-  group_by(TaxaID) %>% 
-  summarise_all(mean)
-
-write_csv(CollapsedDummyCodedCombinedData, "datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_InnerJoin_DummyCoded_TaxaID_Collapsed.csv", append = FALSE)
-#CollapsedDummyCodedCombinedData <- as.data.frame(read_csv("datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_InnerJoin_DummyCoded_GuthrieZone_Collapsed.csv"))
-rownames(CollapsedDummyCodedCombinedData) <- CollapsedDummyCodedCombinedData$GuthrieZone
-CollapsedDummyCodedCombinedData$TaxaID <- NULL
-CollapsedDummyCodedCombinedData$GuthrieZone <- NULL
-CollapsedDummyCodedCombinedData$CulturalTaxa <- NULL
-CollapsedDummyCodedCombinedData$mtDNATaxa <- NULL
-CollapsedDummyCodedCombinedData$YchrTaxa <- NULL
-
-## Clean Up Memory
-rm(DummyCodedCombinedData)
-gc()
+## Split up the data set
+trainIndex <- createDataPartition(rfSepCombinedData$GuthrieZone,
+                                  p = 0.80,
+                                  list = FALSE)
+data_train <- rfSepCombinedData[ trainIndex,]
+data_test <- rfSepCombinedData[-trainIndex,]
 
 
-library(caret)
-library(lime)
 
-# Split up the data set
-split=0.80
-trainIndex <- createDataPartition(iris$Species, p=split, list=FALSE)
-data_train <- iris[ trainIndex,]
-data_test <- iris[-trainIndex,]
-
-#Define the Cross-Validation type
-train_control<- trainControl(method="cv", number=10, savePredictions = TRUE)
-
-# Create Random Forest model on iris data
-model <- train(iris_train,
-               iris_lab,
+## Create Random Forest model and 10-fold CV
+model <- caret::train(GuthrieZone ~ .,
+               data_train,
                method = 'rf',
                trControl = trainControl(method = "cv", 
                                         number = 10, 
@@ -93,7 +63,7 @@ model <- train(iris_train,
                                         savePredictions = TRUE))
 
 # Create an explainer object
-explainer <- lime(iris_train, model)
+explainer <- lime(data_train, model)
 
 # Explain new observation
 explanation <- explain(iris_test, explainer, n_labels = 1, n_features = 2)
