@@ -69,3 +69,34 @@ CollapsedDummyCodedCombinedData$YchrTaxa <- NULL
 rm(DummyCodedCombinedData)
 gc()
 
+
+library(caret)
+library(lime)
+
+# Split up the data set
+split=0.80
+trainIndex <- createDataPartition(iris$Species, p=split, list=FALSE)
+data_train <- iris[ trainIndex,]
+data_test <- iris[-trainIndex,]
+
+#Define the Cross-Validation type
+train_control<- trainControl(method="cv", number=10, savePredictions = TRUE)
+
+# Create Random Forest model on iris data
+model <- train(iris_train,
+               iris_lab,
+               method = 'rf',
+               trControl = trainControl(method = "cv", 
+                                        number = 10, 
+                                        #repeats = 5, 
+                                        verboseIter = TRUE,
+                                        savePredictions = TRUE))
+
+# Create an explainer object
+explainer <- lime(iris_train, model)
+
+# Explain new observation
+explanation <- explain(iris_test, explainer, n_labels = 1, n_features = 2)
+
+plot_features(explanation)
+
