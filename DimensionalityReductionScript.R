@@ -16,15 +16,15 @@ library(dimRed)
 CombinedData <- read_csv("datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_InnerJoin.csv") #Inner Join Data
 #CombinedData <- read_csv("datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_OuterJoin.csv") #Outer Join Data
 colnames(CombinedData)[1] <- "TaxaID" #Fix <U+FEFF> Issues
-mtDNA_cols <- paste0("mtDNA.pos", seq(1:nchar(CombinedData$mtDNA[1])))
-Ychr_cols <- paste0("Ychr.pos", seq(1:nchar(CombinedData$Ychr_STR[1])))
-Cultural_cols <- paste0("Cultural.pos", seq(1:nchar(CombinedData$Cultural_EthnogAtlas[1])))
+mtDNA_cols <- paste0("mtDNA.pos", seq(1:16590))
+Ychr_cols <- paste0("Ychr.pos", seq(1:12))
+Cultural_cols <- paste0("Cultural.pos", seq(1:92))
 
 ## Separate Strings into Individual Columns
 SepCombinedData <- CombinedData %>% 
-  separate(., mtDNA, mtDNA_cols, sep = seq(1:nchar(CombinedData$mtDNA[1])), remove = TRUE) %>% 
-  separate(., Ychr_STR, Ychr_cols, sep = seq(1:nchar(CombinedData$Ychr_STR[1])), remove = TRUE) %>% 
-  separate(., Cultural_EthnogAtlas, Cultural_cols, sep = seq(1:nchar(CombinedData$Cultural_EthnogAtlas[1])), remove = TRUE)
+  separate(., mtDNA, mtDNA_cols, sep = seq(1:12), remove = TRUE) %>% 
+  separate(., Ychr_STR, Ychr_cols, sep = seq(1:16590), remove = TRUE) %>% 
+  separate(., Cultural_EthnogAtlas, Cultural_cols, sep = seq(1:92), remove = TRUE)
 
 ## Remove NA Columns
 SepCombinedData <- SepCombinedData[!is.na(names(SepCombinedData))]
