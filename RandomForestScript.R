@@ -109,15 +109,15 @@ Cultural_model_cv <- caret::train(CulturalData_train,
                                                            verboseIter = TRUE,
                                                            savePredictions = TRUE))
 
-#saveRDS(Combined_model_cv, "datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_OuterJoin_DummyCoded_TaxaID_Collapsed_CombinedrfCVModel.RDS")
-#saveRDS(mtDNA_model_cv, "datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_OuterJoin_DummyCoded_TaxaID_Collapsed_mtDNArfCVModel.RDS")
-#saveRDS(Ychr_model_cv, "datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_OuterJoin_DummyCoded_TaxaID_Collapsed_YchrrfCVModel.RDS")
-#saveRDS(Combined_model_cv, "datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_OuterJoin_DummyCoded_TaxaID_Collapsed_CulturalrfCVModel.RDS")
+#saveRDS(Combined_model_cv, "datasets/MachineLearning/MachineLearning_CombinedData_OuterJoin_DummyCoded_TaxaID_Collapsed_CombinedRandomForestCVModel.RDS")
+#saveRDS(mtDNA_model_cv, "datasets/MachineLearning/MachineLearning_CombinedData_OuterJoin_DummyCoded_TaxaID_Collapsed_mtDNARandomForestCVModel.RDS")
+#saveRDS(Ychr_model_cv, "datasets/MachineLearning/MachineLearning_CombinedData_OuterJoin_DummyCoded_TaxaID_Collapsed_YchrRandomForestCVModel.RDS")
+#saveRDS(Combined_model_cv, "datasets/MachineLearning/MachineLearning_CombinedData_OuterJoin_DummyCoded_TaxaID_Collapsed_CulturalRandomForestCVModel.RDS")
 
-saveRDS(Combined_model_cv, "datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_OuterJoin_CombinedrfCVModel.RDS")
-saveRDS(mtDNA_model_cv, "datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_OuterJoin_mtDNArfCVModel.RDS")
-saveRDS(Ychr_model_cv, "datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_OuterJoin_YchrrfCVModel.RDS")
-saveRDS(Combined_model_cv, "datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_OuterJoin_CulturalrfCVModel.RDS")
+saveRDS(Combined_model_cv, "datasets/MachineLearning/MachineLearning_CombinedData_OuterJoin_CombinedRandomForestCVModel.RDS")
+saveRDS(mtDNA_model_cv, "datasets/MachineLearning/MachineLearning_CombinedData_OuterJoin_mtDNARandomForestCVModel.RDS")
+saveRDS(Ychr_model_cv, "datasets/MachineLearning/MachineLearning_CombinedData_OuterJoin_YchrRandomForestCVModel.RDS")
+saveRDS(Combined_model_cv, "datasets/MachineLearning/MachineLearning_CombinedData_OuterJoin_CulturalRandomForestCVModel.RDS")
 
 
 ## Lime Stuff
