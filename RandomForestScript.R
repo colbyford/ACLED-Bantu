@@ -51,6 +51,19 @@ YchrData_trainIndex <- createDataPartition(YchrData$GuthrieZone, p = 0.50, list 
 YchrData_train <- YchrData[ YchrData_trainIndex,]
 YchrData_test <- YchrData[-YchrData_trainIndex,]
 
+## Create Genetic Only Datasets
+GeneticData <- CombinedData %>% 
+  select(-TaxaID, -CulturalTaxa, -mtDNATaxa, -YchrTaxa, -Cultural_EthnogAtlas) %>% 
+  filter(complete.cases(.)) %>%
+  separate(., mtDNA, mtDNA_cols, sep = seq(1:16590), remove = TRUE) %>% 
+  separate(., Ychr_STR, Ychr_cols, sep = seq(1:12), remove = TRUE)
+# Remove NA Columns
+GeneticData <- GeneticData[!is.na(names(GeneticData))]
+# Split for ML
+GeneticData_trainIndex <- createDataPartition(GeneticData$GuthrieZone, p = 0.50, list = FALSE)
+GeneticData_train <- GeneticData[ GeneticData_trainIndex,]
+GeneticData_test <- GeneticData[-GeneticData_trainIndex,]
+
 ## Create Cultural Datasets
 Cultural_cols <- paste0("Cultural.pos", seq(1:92))
 
@@ -68,6 +81,7 @@ CulturalData_test <- CulturalData[-CulturalData_trainIndex,]
 ## Create Combined Datasets
 CombinedData <- CombinedData %>% 
   select(-TaxaID, -CulturalTaxa, -mtDNATaxa, -YchrTaxa) %>% 
+  #filter(complete.cases(.)) %>% 
   separate(., mtDNA, mtDNA_cols, sep = seq(1:16590), remove = TRUE) %>% 
   separate(., Ychr_STR, Ychr_cols, sep = seq(1:12), remove = TRUE) %>% 
   separate(., Cultural_EthnogAtlas, Cultural_cols, sep = seq(1:92), remove = TRUE)
@@ -81,13 +95,13 @@ CombinedData_test <- CombinedData[-CombinedData_trainIndex,]
 
 ############
 ## Load Dummy Coded TaxaID Summarized Data
-CombinedData <- read_csv("datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_OuterJoin_DummyCoded_TaxaID_Collapsed.csv")
+#CombinedData <- read_csv("datasets/DimensionalityReduction/DimensionalityReduction_CombinedData_OuterJoin_DummyCoded_TaxaID_Collapsed.csv")
 
-CombinedData <- CombinedData %>% 
-  separate(., TaxaID, c("GuthrieZone","other"), sep = 1, remove = TRUE) %>% 
-  dplyr::select(-other)
+#CombinedData <- CombinedData %>% 
+#  separate(., TaxaID, c("GuthrieZone","other"), sep = 1, remove = TRUE) %>% 
+#  dplyr::select(-other)
   
-CombinedData$GuthrieZone <- as.factor(CombinedData$GuthrieZone)
+#CombinedData$GuthrieZone <- as.factor(CombinedData$GuthrieZone)
 ############
 
 ## Create Random Forest model and 10-fold CV
@@ -121,6 +135,16 @@ Ychr_model_cv <- caret::train(YchrData_train,
                                                        verboseIter = TRUE,
                                                        savePredictions = TRUE))
 
+Genetic_model_cv <- caret::train(GeneticData_train,
+                              GeneticData_train$GuthrieZone,
+                              method = 'ranger',
+                              metric = 'Accuracy',
+                              trControl = trainControl(method = "repeatedcv",
+                                                       number = 10,
+                                                       times = 3,
+                                                       verboseIter = TRUE,
+                                                       savePredictions = TRUE))
+
 Cultural_model_cv <- caret::train(CulturalData_train,
                                   CulturalData_train$GuthrieZone,
                                   method = 'ranger',
@@ -141,6 +165,7 @@ Cultural_model_cv <- caret::train(CulturalData_train,
 saveRDS(Combined_model_cv, "datasets/MachineLearning/MachineLearning_CombinedData_OuterJoin_CombinedRandomForestCVModel.RDS")
 saveRDS(mtDNA_model_cv, "datasets/MachineLearning/MachineLearning_CombinedData_OuterJoin_mtDNARandomForestCVModel.RDS")
 saveRDS(Ychr_model_cv, "datasets/MachineLearning/MachineLearning_CombinedData_OuterJoin_YchrRandomForestCVModel.RDS")
+saveRDS(Genetic_model_cv, "datasets/MachineLearning/MachineLearning_CombinedData_OuterJoin_GeneticRandomForestCVModel.RDS")
 saveRDS(Cultural_model_cv, "datasets/MachineLearning/MachineLearning_CombinedData_OuterJoin_CulturalRandomForestCVModel.RDS")
 
 ## Reload Model Objects
@@ -148,6 +173,7 @@ saveRDS(Cultural_model_cv, "datasets/MachineLearning/MachineLearning_CombinedDat
 Combined_model_cv <- readRDS("datasets/MachineLearning/MachineLearning_CombinedData_OuterJoin_CombinedRandomForestCVModel.RDS")
 mtDNA_model_cv <- readRDS("datasets/MachineLearning/MachineLearning_CombinedData_OuterJoin_mtDNARandomForestCVModel.RDS")
 Ychr_model_cv <- readRDS("datasets/MachineLearning/MachineLearning_CombinedData_OuterJoin_YchrRandomForestCVModel.RDS")
+Genetic_model_cv <- readRDS("datasets/MachineLearning/MachineLearning_CombinedData_OuterJoin_GeneticRandomForestCVModel.RDS")
 Cultural_model_cv <- readRDS("datasets/MachineLearning/MachineLearning_CombinedData_OuterJoin_CulturalRandomForestCVModel.RDS")
 
 ## Lime Stuff
