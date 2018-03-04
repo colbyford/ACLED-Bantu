@@ -7,7 +7,7 @@ library(tidyr)
 library(readr)
 library(dplyr)
 library(caret)
-library(lime)
+#library(lime)
 #library(randomForest)
 library(ranger)
 
@@ -113,8 +113,8 @@ CombinedData_test <- CombinedData[-CombinedData_trainIndex,]
 ############
 
 ## Create Random Forest model and 10-fold CV
-Combined_model_cv <- caret::train(GuthrieZone ~ .,
-                                  data = CombinedData_train,
+Combined_model_cv <- caret::train(CombinedData_train,
+                                  CombinedData_train$GuthrieZone,
                                   method = 'ranger',
                                   metric = 'Accuracy',
                                   trControl = trainControl(method = "repeatedcv",
@@ -123,8 +123,8 @@ Combined_model_cv <- caret::train(GuthrieZone ~ .,
                                                            verboseIter = TRUE,
                                                            savePredictions = TRUE))
 
-mtDNA_model_cv <- caret::train(GuthrieZone ~ .,
-                               data = mtDNAData_train,
+mtDNA_model_cv <- caret::train(mtDNAData_train,
+                               mtDNAData_train$GuthrieZone,
                                method = 'ranger',
                                metric = 'Accuracy',
                                trControl = trainControl(method = "repeatedcv",
@@ -133,8 +133,8 @@ mtDNA_model_cv <- caret::train(GuthrieZone ~ .,
                                                         verboseIter = TRUE,
                                                         savePredictions = TRUE))
 
-Ychr_model_cv <- caret::train(GuthrieZone ~ .,
-                              data = YchrData_train,
+Ychr_model_cv <- caret::train(YchrData_train,
+                              YchrData_train$GuthrieZone,
                               method = 'ranger',
                               metric = 'Accuracy',
                               trControl = trainControl(method = "repeatedcv",
@@ -143,8 +143,8 @@ Ychr_model_cv <- caret::train(GuthrieZone ~ .,
                                                        verboseIter = TRUE,
                                                        savePredictions = TRUE))
 
-Genetic_model_cv <- caret::train(GuthrieZone ~ .,
-                              data = GeneticData_train,
+Genetic_model_cv <- caret::train(GeneticData_train,
+                              GeneticData_train$GuthrieZone,
                               method = 'ranger',
                               metric = 'Accuracy',
                               trControl = trainControl(method = "repeatedcv",
@@ -153,8 +153,8 @@ Genetic_model_cv <- caret::train(GuthrieZone ~ .,
                                                        verboseIter = TRUE,
                                                        savePredictions = TRUE))
 
-Cultural_model_cv <- caret::train(GuthrieZone ~ .,
-                                  data = CulturalData_train,
+Cultural_model_cv <- caret::train(CulturalData_train,
+                                  CulturalData_train$GuthrieZone,
                                   method = 'ranger',
                                   metric = 'Accuracy',
                                   trControl = trainControl(method = "repeatedcv",
