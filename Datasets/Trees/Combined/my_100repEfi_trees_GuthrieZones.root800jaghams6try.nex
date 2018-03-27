@@ -1,0 +1,579 @@
+#NEXUS
+[written Fri Feb 23 13:20:03 EST 2018 by Mesquite  version 3.04 (build 725) at reg-10-16-56-191.uncc.edu/10.16.56.191]
+
+BEGIN TAXA;
+	TITLE Taxa;
+	DIMENSIONS NTAX=130;
+	TAXLABELS
+		800Ejagham A242Duala A31Bubi A321Puku A34Benga A43bBakoko A72Ewondo A751Fang A751FangMakina A75Fang2dMake B11aMpongwe B11cGalwa B251Kota B25Kota B27Sake B31Tsogo B41Shira B43Punu B51Duma B521Nzebi B62Mbamba B63Ndumo B735Teke B80Mp1Madzing B84Mpuono B85Yanz C13Mbati C34Sakata C36Lingala C40DDokoDoko C41Ngombe C51Mbesa C55Kele C57Likile C611MongoNkundo C613Mongo C711Tetela C75Kela C841Lele D10SSonge D241Binja D253Lega D322Bira D372Kumu E51Gikuyu E55Kamba E621Caga E711Pokomo E72a1Giryama E731Digo F21Sukuma F22Nyamwezi F23Sumbwa G11Gogo G12Kaguru G22Pare G23Shambala G31Zigula G34Ngulu G35Luguru G43cHadimu H12b1Yombe H16hSikongo H16i4Sundi H312YakaKasongo H314Yaka H31Yaka H32Suku J13Hima J15Ganda J16Soga J22HHaya J23Zinza J51Hunde J53Shi J611Rwanda J62Rundi K11Ciokwe K141Lwena K14Lwena K15Mbunda K19Gangela K221Ndembu K222LundaMwinilunga K31Luyi K33Kwangali K41Totela L33Luba L342HembaMambwe L342Hembamambwe L42Kaonde L62Nkoya M15Mambwe M312Nyakyusa M42Bemba M43Aushi M52Lala M54Lamba M61Lenje M641Tonga M64Tonga N212Tumbuka N31aNyanja N31bCewa N31Nyasa N41Senga N42Kunda N44Sena P212Yao P311Makwa R111Umbundu R21Kwanyama R22Ndonga R31Herero S10Shona S15Ndau S16Kalanga S21Venda S31dKhalaxadi S31Tswana S33Sotho S34Lozi S41Xhosa S42Zulu S43Swati S44Ndebele S45Ngoni S51Tswa S53Tsonga S54Ronga 
+	;
+
+END;
+
+
+BEGIN CHARACTERS;
+	TITLE  Character_Matrix;
+	DIMENSIONS  NCHAR=1;
+	FORMAT DATATYPE = STANDARD GAP = - MISSING = ? SYMBOLS = "  0 1 2 3 4 5 6 7 8 9 A B C D E F G H J K M N P Q R S T U V W X Y Z";
+	MATRIX
+	800Ejagham           Z
+	A242Duala            A
+	A31Bubi              A
+	A321Puku             A
+	A34Benga             A
+	A43bBakoko           A
+	A72Ewondo            A
+	A751Fang             A
+	A751FangMakina       A
+	A75Fang2dMake        A
+	B11aMpongwe          B
+	B11cGalwa            B
+	B251Kota             B
+	B25Kota              B
+	B27Sake              B
+	B31Tsogo             B
+	B41Shira             B
+	B43Punu              B
+	B51Duma              B
+	B521Nzebi            B
+	B62Mbamba            B
+	B63Ndumo             B
+	B735Teke             B
+	B80Mp1Madzing        B
+	B84Mpuono            B
+	B85Yanz              B
+	C13Mbati             C
+	C34Sakata            C
+	C36Lingala           C
+	C40DDokoDoko         C
+	C41Ngombe            C
+	C51Mbesa             C
+	C55Kele              C
+	C57Likile            C
+	C611MongoNkundo      C
+	C613Mongo            C
+	C711Tetela           C
+	C75Kela              C
+	C841Lele             C
+	D10SSonge            D
+	D241Binja            D
+	D253Lega             D
+	D322Bira             D
+	D372Kumu             D
+	E51Gikuyu            E
+	E55Kamba             E
+	E621Caga             E
+	E711Pokomo           E
+	E72a1Giryama         E
+	E731Digo             E
+	F21Sukuma            F
+	F22Nyamwezi          F
+	F23Sumbwa            F
+	G11Gogo              G
+	G12Kaguru            G
+	G22Pare              G
+	G23Shambala          G
+	G31Zigula            G
+	G34Ngulu             G
+	G35Luguru            G
+	G43cHadimu           G
+	H12b1Yombe           H
+	H16hSikongo          H
+	H16i4Sundi           H
+	H312YakaKasongo      H
+	H314Yaka             H
+	H31Yaka              H
+	H32Suku              H
+	J13Hima              J
+	J15Ganda             J
+	J16Soga              J
+	J22HHaya             J
+	J23Zinza             J
+	J51Hunde             J
+	J53Shi               J
+	J611Rwanda           J
+	J62Rundi             J
+	K11Ciokwe            K
+	K141Lwena            K
+	K14Lwena             K
+	K15Mbunda            K
+	K19Gangela           K
+	K221Ndembu           K
+	K222LundaMwinilunga  K
+	K31Luyi              K
+	K33Kwangali          K
+	K41Totela            K
+	L33Luba              Y
+	L342HembaMambwe      Y
+	L342Hembamambwe      Y
+	L42Kaonde            Y
+	L62Nkoya             Y
+	M15Mambwe            M
+	M312Nyakyusa         M
+	M42Bemba             M
+	M43Aushi             M
+	M52Lala              M
+	M54Lamba             M
+	M61Lenje             M
+	M641Tonga            M
+	M64Tonga             M
+	N212Tumbuka          N
+	N31aNyanja           N
+	N31bCewa             N
+	N31Nyasa             N
+	N41Senga             N
+	N42Kunda             N
+	N44Sena              N
+	P212Yao              P
+	P311Makwa            P
+	R111Umbundu          R
+	R21Kwanyama          R
+	R22Ndonga            R
+	R31Herero            R
+	S10Shona             S
+	S15Ndau              S
+	S16Kalanga           S
+	S21Venda             S
+	S31dKhalaxadi        S
+	S31Tswana            S
+	S33Sotho             S
+	S34Lozi              S
+	S41Xhosa             S
+	S42Zulu              S
+	S43Swati             S
+	S44Ndebele           S
+	S45Ngoni             S
+	S51Tswa              S
+	S53Tsonga            S
+	S54Ronga             S
+
+;
+
+END;
+BEGIN ASSUMPTIONS;
+	TYPESET * UNTITLED   =  unord:  1;
+
+END;
+
+BEGIN MESQUITECHARMODELS;
+	ProbModelSet * UNTITLED   =  'Mk1 (est.)':  1;
+END;
+
+BEGIN TREES;
+	Title Imported_trees;
+	LINK Taxa = Taxa;
+	TRANSLATE
+[0] 		1 800Ejagham,
+[1] 		2 A242Duala,
+[2] 		3 A31Bubi,
+[3] 		4 A321Puku,
+[4] 		5 A34Benga,
+[5] 		6 A43bBakoko,
+[6] 		7 A72Ewondo,
+[7] 		8 A751Fang,
+[8] 		9 A751FangMakina,
+[9] 		10 A75Fang2dMake,
+[10] 		11 B11aMpongwe,
+[11] 		12 B11cGalwa,
+[12] 		13 B251Kota,
+[13] 		14 B25Kota,
+[14] 		15 B27Sake,
+[15] 		16 B31Tsogo,
+[16] 		17 B41Shira,
+[17] 		18 B43Punu,
+[18] 		19 B51Duma,
+[19] 		20 B521Nzebi,
+[20] 		21 B62Mbamba,
+[21] 		22 B63Ndumo,
+[22] 		23 B735Teke,
+[23] 		24 B80Mp1Madzing,
+[24] 		25 B84Mpuono,
+[25] 		26 B85Yanz,
+[26] 		27 C13Mbati,
+[27] 		28 C34Sakata,
+[28] 		29 C36Lingala,
+[29] 		30 C40DDokoDoko,
+[30] 		31 C41Ngombe,
+[31] 		32 C51Mbesa,
+[32] 		33 C55Kele,
+[33] 		34 C57Likile,
+[34] 		35 C611MongoNkundo,
+[35] 		36 C613Mongo,
+[36] 		37 C711Tetela,
+[37] 		38 C75Kela,
+[38] 		39 C841Lele,
+[39] 		40 D10SSonge,
+[40] 		41 D241Binja,
+[41] 		42 D253Lega,
+[42] 		43 D322Bira,
+[43] 		44 D372Kumu,
+[44] 		45 E51Gikuyu,
+[45] 		46 E55Kamba,
+[46] 		47 E621Caga,
+[47] 		48 E711Pokomo,
+[48] 		49 E72a1Giryama,
+[49] 		50 E731Digo,
+[50] 		51 F21Sukuma,
+[51] 		52 F22Nyamwezi,
+[52] 		53 F23Sumbwa,
+[53] 		54 G11Gogo,
+[54] 		55 G12Kaguru,
+[55] 		56 G22Pare,
+[56] 		57 G23Shambala,
+[57] 		58 G31Zigula,
+[58] 		59 G34Ngulu,
+[59] 		60 G35Luguru,
+[60] 		61 G43cHadimu,
+[61] 		62 H12b1Yombe,
+[62] 		63 H16hSikongo,
+[63] 		64 H16i4Sundi,
+[64] 		65 H312YakaKasongo,
+[65] 		66 H314Yaka,
+[66] 		67 H31Yaka,
+[67] 		68 H32Suku,
+[68] 		69 J13Hima,
+[69] 		70 J15Ganda,
+[70] 		71 J16Soga,
+[71] 		72 J22HHaya,
+[72] 		73 J23Zinza,
+[73] 		74 J51Hunde,
+[74] 		75 J53Shi,
+[75] 		76 J611Rwanda,
+[76] 		77 J62Rundi,
+[77] 		78 K11Ciokwe,
+[78] 		79 K141Lwena,
+[79] 		80 K14Lwena,
+[80] 		81 K15Mbunda,
+[81] 		82 K19Gangela,
+[82] 		83 K221Ndembu,
+[83] 		84 K222LundaMwinilunga,
+[84] 		85 K31Luyi,
+[85] 		86 K33Kwangali,
+[86] 		87 K41Totela,
+[87] 		88 L33Luba,
+[88] 		89 L342HembaMambwe,
+[89] 		90 L342Hembamambwe,
+[90] 		91 L42Kaonde,
+[91] 		92 L62Nkoya,
+[92] 		93 M15Mambwe,
+[93] 		94 M312Nyakyusa,
+[94] 		95 M42Bemba,
+[95] 		96 M43Aushi,
+[96] 		97 M52Lala,
+[97] 		98 M54Lamba,
+[98] 		99 M61Lenje,
+[99] 		100 M641Tonga,
+[100] 		101 M64Tonga,
+[101] 		102 N212Tumbuka,
+[102] 		103 N31aNyanja,
+[103] 		104 N31bCewa,
+[104] 		105 N31Nyasa,
+[105] 		106 N41Senga,
+[106] 		107 N42Kunda,
+[107] 		108 N44Sena,
+[108] 		109 P212Yao,
+[109] 		110 P311Makwa,
+[110] 		111 R111Umbundu,
+[111] 		112 R21Kwanyama,
+[112] 		113 R22Ndonga,
+[113] 		114 R31Herero,
+[114] 		115 S10Shona,
+[115] 		116 S15Ndau,
+[116] 		117 S16Kalanga,
+[117] 		118 S21Venda,
+[118] 		119 S31dKhalaxadi,
+[119] 		120 S31Tswana,
+[120] 		121 S33Sotho,
+[121] 		122 S34Lozi,
+[122] 		123 S41Xhosa,
+[123] 		124 S42Zulu,
+[124] 		125 S43Swati,
+[125] 		126 S44Ndebele,
+[126] 		127 S45Ngoni,
+[127] 		128 S51Tswa,
+[128] 		129 S53Tsonga,
+[129] 		130 S54Ronga;
+	TREE Imported_tree_1 = (1,(3,((4,(6,9)),((7,(10,(2,8))),(5,(13,(24,(25,(((12,26),(16,(11,(22,((14,(18,20)),(17,(21,(15,23)))))))),(19,((65,66),(64,((63,67),(68,(62,((33,39),((30,(28,((32,34),(27,(38,(36,37)))))),((29,(31,35)),(40,(((41,42),((43,44),(75,(74,((69,73),(72,((71,(70,(76,77))),((53,(51,52)),((61,(58,(55,(59,60)))),(57,((54,56),((45,47),(48,(46,(49,50))))))))))))))),(92,((((85,86),(82,(80,84))),((87,(79,(78,83))),(81,(112,(111,(113,114)))))),((90,91),((96,((97,(98,99)),(101,((104,106),((102,(107,108)),(103,(105,(109,110)))))))),(100,(95,((93,94),((120,(129,(119,(116,118)))),((121,(127,128)),((115,122),((123,(124,130)),(117,(125,126)))))))))))))))))))))))))))))))));
+
+END;
+
+
+Begin MESQUITE;
+		MESQUITESCRIPTVERSION 2;
+		TITLE AUTO;
+		tell ProjectCoordinator;
+		timeSaved 1519410003222;
+		getEmployee #mesquite.minimal.ManageTaxa.ManageTaxa;
+		tell It;
+			setID 0 3292060793740996939;
+		endTell;
+		getEmployee #mesquite.charMatrices.ManageCharacters.ManageCharacters;
+		tell It;
+			setID 0 1439950612516953747;
+			mqVersion 304;
+			checksumv 0 3 1136244150 null  getNumChars 1 numChars 1 getNumTaxa 130 numTaxa 130   short false   bits 6501170176   states 6501170176   sumSquaresStatesOnly 2.3077649784190796E19 sumSquares 2.3077649784190796E19 longCompressibleToShort false usingShortMatrix false   NumFiles 1 NumMatrices 1;
+			mqVersion;
+		endTell;
+		getWindow;
+		tell It;
+			suppress;
+			setResourcesState false false 100;
+			setPopoutState 300;
+			setExplanationSize 0;
+			setAnnotationSize 0;
+			setFontIncAnnot 0;
+			setFontIncExp 0;
+			setSize 3840 2079;
+			setLocation -3840 -1189;
+			setFont SanSerif;
+			setFontSize 10;
+			getToolPalette;
+			tell It;
+			endTell;
+			desuppress;
+		endTell;
+		getEmployee  #mesquite.trees.BasicTreeWindowCoord.BasicTreeWindowCoord;
+		tell It;
+			makeTreeWindow #3292060793740996939  #mesquite.trees.BasicTreeWindowMaker.BasicTreeWindowMaker;
+			tell It;
+				suppressEPCResponse;
+				setTreeSource  #mesquite.trees.StoredTrees.StoredTrees;
+				tell It;
+					setTreeBlock 1;
+					toggleUseWeights off;
+				endTell;
+				setAssignedID 936.1519409766149.1038697884597275048;
+				getTreeWindow;
+				tell It;
+					setExplanationSize 30;
+					setAnnotationSize 20;
+					setFontIncAnnot 0;
+					setFontIncExp 0;
+					setSize 3740 2007;
+					setLocation -3840 -1189;
+					setFont SanSerif;
+					setFontSize 10;
+					getToolPalette;
+					tell It;
+					endTell;
+					setActive;
+					getTreeDrawCoordinator #mesquite.trees.BasicTreeDrawCoordinator.BasicTreeDrawCoordinator;
+				tell It;
+					suppress;
+					setTreeDrawer  #mesquite.trees.SquareLineTree.SquareLineTree;
+					tell It;
+						setNodeLocs #mesquite.trees.NodeLocsStandard.NodeLocsStandard;
+						tell It;
+							branchLengthsToggle off;
+							toggleScale on;
+							toggleBroadScale off;
+							toggleCenter on;
+							toggleEven on;
+							setFixedTaxonDistance 0;
+						endTell;
+						setEdgeWidth 4;
+						showEdgeLines on;
+						orientUp;
+					endTell;
+					setBackground White;
+					setBranchColor Black;
+					showNodeNumbers off;
+					showBranchColors on;
+					labelBranchLengths off;
+					centerBrLenLabels on;
+					showBrLensUnspecified on;
+					showBrLenLabelsOnTerminals on;
+					setBrLenLabelColor 0 0 255;
+					setNumBrLenDecimals 6;
+					desuppress;
+					getEmployee #mesquite.trees.BasicDrawTaxonNames.BasicDrawTaxonNames;
+					tell It;
+						setColor Black;
+						toggleColorPartition off;
+						toggleColorAssigned on;
+						toggleShadePartition off;
+						toggleShowFootnotes on;
+						toggleNodeLabels on;
+						toggleCenterNodeNames off;
+						toggleShowNames on;
+						namesAngle ?;
+					endTell;
+				endTell;
+					setTreeNumber 1;
+					setTree '(1,(3,((4,(6,9)),((7,(10,(2,8))),(5,(13,(24,(25,(((12,26),(16,(11,(22,((14,(18,20)),(17,(21,(15,23)))))))),(19,((65,66),(64,((63,67),(68,(62,((33,39),((30,(28,((32,34),(27,(38,(36,37)))))),((29,(31,35)),(40,(((41,42),((43,44),(75,(74,((69,73),(72,((71,(70,(76,77))),((53,(51,52)),((61,(58,(55,(59,60)))),(57,((54,56),((45,47),(48,(46,(49,50))))))))))))))),(92,((((85,86),(82,(80,84))),((87,(79,(78,83))),(81,(112,(111,(113,114)))))),((90,91),((96,((97,(98,99)),(101,((104,106),((102,(107,108)),(103,(105,(109,110)))))))),(100,(95,((93,94),((120,(129,(119,(116,118)))),((121,(127,128)),((115,122),((123,(124,130)),(117,(125,126)))))))))))))))))))))))))))))))));';
+					setDrawingSizeMode 0;
+					toggleLegendFloat on;
+					scale 0;
+					toggleTextOnTree off;
+					togglePrintName on;
+					showWindow;
+					newAssistant  #mesquite.ancstates.TraceCharacterHistory.TraceCharacterHistory;
+				tell It;
+					suspend ;
+					setDisplayMode  #mesquite.ancstates.ShadeStatesOnTree.ShadeStatesOnTree;
+					tell It;
+						toggleLabels off;
+						togglePredictions off;
+						toggleGray off;
+					endTell;
+					setHistorySource  #mesquite.ancstates.RecAncestralStates.RecAncestralStates;
+					tell It;
+						getCharacterSource  #mesquite.charMatrices.CharSrcCoordObed.CharSrcCoordObed;
+						tell It;
+							setCharacterSource #mesquite.charMatrices.StoredCharacters.StoredCharacters;
+							tell It;
+								setDataSet #1439950612516953747;
+							endTell;
+						endTell;
+						setMethod  #mesquite.parsimony.ParsAncestralStates.ParsAncestralStates;
+						tell It;
+							setModelSource  #mesquite.parsimony.CurrentParsModels.CurrentParsModels;
+							toggleMPRsMode off;
+						endTell;
+						toggleShowSelectedOnly off;
+					endTell;
+					setCharacter 1;
+					setMapping 1;
+					toggleShowLegend on;
+					setColorMode 0;
+					toggleWeights on;
+					setInitialOffsetX 1009;
+					setInitialOffsetY -461;
+					setLegendWidth 142;
+					setLegendHeight 433;
+					resume ;
+				endTell;
+				endTell;
+				desuppressEPCResponse;
+				getEmployee #mesquite.trees.ColorBranches.ColorBranches;
+				tell It;
+					setColor Red;
+					removeColor off;
+				endTell;
+				getEmployee #mesquite.ornamental.BranchNotes.BranchNotes;
+				tell It;
+					setAlwaysOn off;
+				endTell;
+				getEmployee #mesquite.ornamental.ColorTreeByPartition.ColorTreeByPartition;
+				tell It;
+					colorByPartition off;
+				endTell;
+				getEmployee #mesquite.ornamental.DrawTreeAssocDoubles.DrawTreeAssocDoubles;
+				tell It;
+					setOn on;
+					toggleShow consensusFrequency;
+					setDigits 4;
+					writeAsPercentage off;
+					toggleCentred off;
+					toggleHorizontal on;
+					toggleWhiteEdges on;
+					setFontSize 10;
+					setOffset 0  0;
+				endTell;
+				getEmployee #mesquite.ornamental.DrawTreeAssocStrings.DrawTreeAssocStrings;
+				tell It;
+					setOn on;
+					toggleCentred on;
+					toggleHorizontal on;
+					setFontSize 10;
+					setOffset 0  0;
+				endTell;
+				getEmployee #mesquite.trees.TreeInfoValues.TreeInfoValues;
+				tell It;
+					panelOpen false;
+				endTell;
+			endTell;
+		endTell;
+		getEmployee  #mesquite.charMatrices.BasicDataWindowCoord.BasicDataWindowCoord;
+		tell It;
+			showDataWindow #1439950612516953747 #mesquite.charMatrices.BasicDataWindowMaker.BasicDataWindowMaker;
+			tell It;
+				getWindow;
+				tell It;
+					setExplanationSize 30;
+					setAnnotationSize 20;
+					setFontIncAnnot 0;
+					setFontIncExp 0;
+					setSize 3740 2007;
+					setLocation -3840 -1189;
+					setFont SanSerif;
+					setFontSize 10;
+					getToolPalette;
+					tell It;
+						setTool mesquite.charMatrices.BasicDataWindowMaker.BasicDataWindow.ibeam;
+					endTell;
+					setTool mesquite.charMatrices.BasicDataWindowMaker.BasicDataWindow.ibeam;
+					colorCells  #mesquite.charMatrices.NoColor.NoColor;
+					colorRowNames  #mesquite.charMatrices.TaxonGroupColor.TaxonGroupColor;
+					colorColumnNames  #mesquite.charMatrices.CharGroupColor.CharGroupColor;
+					colorText  #mesquite.charMatrices.NoColor.NoColor;
+					setBackground White;
+					toggleShowNames on;
+					toggleShowTaxonNames on;
+					toggleTight off;
+					toggleThinRows off;
+					toggleShowChanges on;
+					toggleSeparateLines off;
+					toggleShowStates on;
+					toggleAutoWCharNames on;
+					toggleAutoTaxonNames off;
+					toggleShowDefaultCharNames off;
+					toggleConstrainCW on;
+					toggleBirdsEye off;
+					toggleShowPaleGrid off;
+					toggleShowPaleCellColors off;
+					toggleShowPaleExcluded off;
+					togglePaleInapplicable on;
+					toggleShowBoldCellText off;
+					toggleAllowAutosize on;
+					toggleColorsPanel off;
+					toggleDiagonal on;
+					setDiagonalHeight 80;
+					toggleLinkedScrolling on;
+					toggleScrollLinkedTables off;
+				endTell;
+				getWindow;
+				tell It;
+					forceAutosize;
+				endTell;
+				hideWindow;
+				getEmployee #mesquite.charMatrices.ColorByState.ColorByState;
+				tell It;
+					setStateLimit 9;
+					toggleUniformMaximum on;
+				endTell;
+				getEmployee #mesquite.charMatrices.ColorCells.ColorCells;
+				tell It;
+					setColor Red;
+					removeColor off;
+				endTell;
+				getEmployee #mesquite.categ.StateNamesStrip.StateNamesStrip;
+				tell It;
+					showStrip off;
+				endTell;
+				getEmployee #mesquite.charMatrices.AnnotPanel.AnnotPanel;
+				tell It;
+					togglePanel off;
+				endTell;
+				getEmployee #mesquite.charMatrices.CharReferenceStrip.CharReferenceStrip;
+				tell It;
+					showStrip off;
+				endTell;
+				getEmployee #mesquite.charMatrices.QuickKeySelector.QuickKeySelector;
+				tell It;
+					autotabOff;
+				endTell;
+				getEmployee #mesquite.charMatrices.SelSummaryStrip.SelSummaryStrip;
+				tell It;
+					showStrip off;
+				endTell;
+				getEmployee #mesquite.categ.SmallStateNamesEditor.SmallStateNamesEditor;
+				tell It;
+					panelOpen true;
+				endTell;
+			endTell;
+		endTell;
+		endTell;
+end;
+
+
