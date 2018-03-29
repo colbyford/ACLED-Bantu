@@ -1,13 +1,4 @@
-# Bantu Migration
+# An Integrated Phylogeographic Assessment of the Bantu Migration
 
-## Phylogenetic Analyses
-- [ ] Run Cultural file through POY
-- [ ] Run Ychr file through POY
-- [ ] Run mtDNA file through POY
-- [ ] Run combined file through POY
-
-## Visualization
-- [ ] Clean up Shapefile for Guthrie Zones
-- [ ] Complete R mapping script ([Link](Mapping))
-- [ ] Complete R tree visualization script
-- [ ] Combine scripts into Shiny dashboard
+## Abstract
+“Bantu” is a term used to describe lineages of people in around 600 different ethnic groups on the African continent ranging from modern day Cameroon to South Africa. The migration of the Bantu people, which occurred ~3,000 years ago, was influential in spreading culture, language, and genetic traits and helped to shape human diversity on the continent. Researchers have postulated the migratory pattern of the Bantu peoples by examining cultural information, linguistic traits, or small genetic datasets. These studies have resulted in conflicting results depending of the type of data considered. Here, an assessment of the Bantu migration is made using a large dataset of combined cultural data and genetic (Y-chromosomal and mitochondrial) data. One working hypothesis is that the Bantu expansion can be characterized by a primary split in lineages, which occurred early on and prior to the population spreading south through what is now called the Congolese forest (i.e. “early split”). A competing hypothesis is that the split occurred south of the forest (i.e. “late split”). Using the comprehensive dataset, a phylogenetic tree was developed on which to reconstruct the relationships of the Bantu lineages. With an understanding of these lineages in hand, the changes between Guthrie zone were traced geospatially. Evidence supporting the “early split” hypothesis was found, however, evidence for several complex and convoluted paths across the continent were also shown. These findings were then analyzed using dimensionality reduction and machine learning techniques to further understand the confidence of the model. 
