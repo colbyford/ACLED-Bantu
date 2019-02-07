@@ -13,7 +13,7 @@ Using the comprehensive dataset, a phylogenetic tree was developed on which to r
 Evidence supporting the "early split" hypothesis was found, however, evidence for several complex and convoluted paths across the continent were also shown. These findings were then analyzed using dimensionality reduction and  machine learning techniques to further understand the confidence of the model.
 
 ## ProQuest
-This work has been published to ProQuest. Click [here](https://search.proquest.com/pqdtlocal1006002/docview/2036377441/2C1C79B82AFB42C5PQ/1?accountid=14605).
+This work has been published to ProQuest. Click [here](https://pqdtopen.proquest.com/doc/2036377441.html?FMT=ABS).
 
 ## Interactive Visualizations
 To view the interactive visualizations of the Bantu migration models, click [here](https://public.tableau.com/profile/cford38#!/vizhome/BantuMigration/AnIntegratedPhylogeographicAnalysisoftheBantuMigration?publish=yes).
