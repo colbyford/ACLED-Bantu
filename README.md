@@ -1,5 +1,5 @@
-# An Integrated Phylogeographic Assessment of the Bantu Migration
-<h4 align = "right">Colby T. Ford</h4>
+# An Integrated Phylogeographic Analysis of the Bantu Migration
+<h4 align = "right">Colby T. Ford, Ph.D.</h4>
 
 ## Abstract
 "Bantu" is a term used to describe lineages of people in around 600 different ethnic groups on the African continent ranging from modern-day Cameroon to South Africa. The migration of the Bantu people, which occurred around 3,000 years ago, was influential in spreading culture, language, and genetic traits and helped to shape human diversity on the continent. Research in the 1970s was completed to geographically divide the Bantu languages into 16 zones now known as "Guthrie zones" (Guthrie, 1971).
