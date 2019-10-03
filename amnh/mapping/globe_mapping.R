@@ -1,5 +1,5 @@
 ## Globe Visualizations of Bantu Migration Models
-
+## By: Colby T. Ford, Ph.D.
 
 ## Load in Libraries
 library(readxl)
@@ -20,7 +20,9 @@ create_mapdata <- function(data, model){
     inner_join(tos,
                by = "PathID",
                suffix = c(".from", ".to")) %>% 
-    mutate(color = ifelse(ApomorphyType.from == "Unambiguous", "#fa7b23", "#28bfce"))
+    mutate(color = case_when(ApomorphyType.from == "Unambiguous"  ~ "#fa7b23",
+                             ApomorphyType.from == "Ambiguous" ~ "#28bfce",
+                             is.na(ApomorphyType.from) ~ "#ff1493"))
   return(mapdata)
 }
 
@@ -28,7 +30,8 @@ create_labeldata <- function(data, model){
   labeldata <- data %>%
     filter(Model == model) %>% 
     group_by(GuthrieZone) %>%
-    select(GuthrieZone, Latitude, Longitude)
+    select(GuthrieZone, Latitude, Longitude) %>%
+    unique()
   return(labeldata)
 }
 
@@ -65,28 +68,39 @@ create_model_globe <- function(data, model, title = "", altitude = 0.6){
 
 
 ## Arrange in Grid
-library(manipulateWidget)
 
 ## Create Globes
-combined_globe <- create_model_globe(data, model = "Combined", title = "Combined", altitude = 0.7)
-cult_globe <- create_model_globe(data, model = "Cultural", title = "Cultural")
-lang_globe <- create_model_globe(data, model = "Language", title = "Language")
-mtdna_globe <- create_model_globe(data, model = "Mitochondrial DNA", title = "Mitochondrial DNA")
-ychr_globe <- create_model_globe(data, model = "Y-Chromosomal", title = "Y-Chromosomal")
+combined_globe <- create_model_globe(data, model = "Combined", altitude = 0.7)
+cult_globe <- create_model_globe(data, model = "Cultural")
+lang_globe <- create_model_globe(data, model = "Language")
+mtdna_globe <- create_model_globe(data, model = "Mitochondrial DNA")
+ychr_globe <- create_model_globe(data, model = "Y-Chromosomal")
+dfe_globe <- create_model_globe(data, model = "de Filippo et al., 2011 (\"Early Split\")",)
+dfl_globe <- create_model_globe(data, model = "de Filippo et al., 2011 (\"Late Split\")")
+cur_globe <- create_model_globe(data, model = "Currie et al., 2013")
+gro_globe <- create_model_globe(data, model = "Grollemund et al., 2015")
 
 ## Create Widgets of Globes
+library(manipulateWidget)
 w_comb <- combineWidgets(title = "Combined", combined_globe, nrow = 1, ncol = 1)
 w_cult <- combineWidgets(title = "Cultural", cult_globe, nrow = 1, ncol = 1)
 w_lang <- combineWidgets(title = "Language", lang_globe, nrow = 1, ncol = 1)
-w_mtdna <- combineWidgets(title = "Mitochondrial DNA", mtdna_globe, nrow = 1, ncol = 1)
-w_ychr <- combineWidgets(title = "Y-Chromosomal", ychr_globe, nrow = 1, ncol = 1)
+w_mtdna <- combineWidgets(title = "mtDNA", mtdna_globe, nrow = 1, ncol = 1)
+w_ychr <- combineWidgets(title = "yChr", ychr_globe, nrow = 1, ncol = 1)
+w_dfe <- combineWidgets(title = "Filippo (Early)", dfe_globe, nrow = 1, ncol = 1)
+w_dfl <- combineWidgets(title = "Filippo (Late)", dfl_globe, nrow = 1, ncol = 1)
+w_cur <- combineWidgets(title = "Currie", cur_globe, nrow = 1, ncol = 1)
+w_gro <- combineWidgets(title = "Grollemund", gro_globe, nrow = 1, ncol = 1)
 
+
+single_models <- combineWidgets(nrow = 2, ncol = 2,
+                                w_cult, w_lang,
+                                w_mtdna, w_ychr)
+
+comparison_models <- combineWidgets(nrow = 2,ncol = 2,
+                                    w_dfe, w_dfl,
+                                    w_cur, w_gro)
 ## Combine Widgets into Grid
-combineWidgets(#title = "Bantu Migration Models",
-               nrow = 2,
-               ncol = 2,
-               w_cult,
-               w_lang,
-               w_mtdna,
-               w_ychr) %>% 
-  combineWidgets(w_comb, nrow = 1, ncol = 2)
+combineWidgets(title = "Bantu Migration Models",
+               comparison_models, single_models, w_comb,
+               nrow = 1, ncol = 3)
