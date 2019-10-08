@@ -68,7 +68,7 @@ create_model_globe <- function(data, model, title = "", altitude = 0.6){
 
 
 ## Arrange in Grid
-
+unique(data$Model)
 ## Create Globes
 combined_globe <- create_model_globe(data, model = "Combined", altitude = 0.7)
 cult_globe <- create_model_globe(data, model = "Cultural")
@@ -79,6 +79,7 @@ dfe_globe <- create_model_globe(data, model = "de Filippo et al., 2011 (\"Early 
 dfl_globe <- create_model_globe(data, model = "de Filippo et al., 2011 (\"Late Split\")")
 cur_globe <- create_model_globe(data, model = "Currie et al., 2013")
 gro_globe <- create_model_globe(data, model = "Grollemund et al., 2015")
+whi_globe <- create_model_globe(data, model = "Whiteley et al., 2018")
 
 ## Create Widgets of Globes
 library(manipulateWidget)
@@ -91,16 +92,21 @@ w_dfe <- combineWidgets(title = "Filippo (Early)", dfe_globe, nrow = 1, ncol = 1
 w_dfl <- combineWidgets(title = "Filippo (Late)", dfl_globe, nrow = 1, ncol = 1)
 w_cur <- combineWidgets(title = "Currie", cur_globe, nrow = 1, ncol = 1)
 w_gro <- combineWidgets(title = "Grollemund", gro_globe, nrow = 1, ncol = 1)
+w_whi <- combineWidgets(title = "Whiteley", whi_globe, nrow = 1, ncol = 1)
 
+comparison_models <- combineWidgets(nrow = 2,ncol = 2,
+                                    w_dfe, w_dfl,
+                                    w_cur, w_gro)
 
 single_models <- combineWidgets(nrow = 2, ncol = 2,
                                 w_cult, w_lang,
                                 w_mtdna, w_ychr)
 
-comparison_models <- combineWidgets(nrow = 2,ncol = 2,
-                                    w_dfe, w_dfl,
-                                    w_cur, w_gro)
+
+new_models <- combineWidgets(nrow = 2, ncol = 1,
+                             w_comb, w_whi)
+
 ## Combine Widgets into Grid
 combineWidgets(title = "Bantu Migration Models",
-               comparison_models, single_models, w_comb,
+               comparison_models, single_models, new_models,
                nrow = 1, ncol = 3)
