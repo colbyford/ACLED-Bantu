@@ -66,7 +66,85 @@ create_model_globe <- function(data, model, title = "", altitude = 0.6){
   return(output_globe)
 }
 
+create_model_map <- function(data, model, title = "", basemapLayer = "Imagery", arrowFilled = TRUE){
+  
+  ## Reshape input data
+  data <- create_mapdata(data, model)
+  
+  ## Setup for Swoopy.js
+  esriPlugin <- htmlDependency("leaflet.esri", "1.0.3",
+                               src = c(href = "https://cdn.jsdelivr.net/leaflet.esri/1.0.3/"),
+                               script = "esri-leaflet.js"
+  )
+  
+  swoopyPlugin <- htmlDependency("leaflet-swoopy", "3.4.1",
+                                 src = c(href = "https://unpkg.com/leaflet-swoopy@3.4.1/build/"),
+                                 script = "Leaflet.SwoopyArrow.js"
+  )
+  
+  # swoopyPlugin <- htmlDependency("leaflet-swoopy", "3.4.1", 
+  #                                src = c(href = "https://unpkg.com/leaflet-swoopy@3.4.1/build/"),
+  #                                script = "Leaflet.SwoopyArrow.min.js"
+  # )
+  
+  registerleafletPlugin <- function(map, plugin) {
+    map$dependencies <- c(map$dependencies, list(plugin))
+    map
+  }
+  
+  header <- "function(el, x) {"
+  ## https://esri.github.io/esri-leaflet/api-reference/layers/basemap-layer.html
+  basemap <- paste0("L.esri.basemapLayer('",basemapLayer,"').addTo(this);")
+  swoopys <- ""
+  for (i in 1:nrow(data)){
+    fromLat <- data$Latitude.from[i]
+    fromLong <- data$Longitude.from[i]
+    toLat <- data$Latitude.to[i]
+    toLong <- data$Longitude.to[i]
+    color <- data$color[i]
+    arrow <- if(arrowFilled){"true"}else{"false"}
+    swoopyIter <- paste0("L.swoopyArrow([",fromLat,",",fromLong,"], [",toLat,",",toLong,"], {color: '",color,"', factor: 0.7, weight: 2, arrowFilled: ",arrow,"}).addTo(this);")
+    #print(swoopyIter)
+    swoopys <- paste0(swoopys, swoopyIter)
+  }
+  
+  # fromLocs <- data %>% select(label.from, Latitude.from, Longitude.from)
+  fromLocs <- data %>% select(GuthrieZone.from, Latitude.from, Longitude.from)
+  colnames(fromLocs) <- c("location", "latitude", "longitude")
+  # toLocs <- data %>% select(label.to, Latitude.to, Longitude.to)
+  toLocs <- data %>% select(GuthrieZone.to, Latitude.to, Longitude.to)
+  colnames(toLocs) <- c("location", "latitude", "longitude")
+  allLocs <- fromLocs %>% rbind(toLocs) %>% unique()
+  labels <- ""
+  
+  for (i in 1:nrow(allLocs)){
+    fromLat <- allLocs$latitude[i]
+    fromLong <- allLocs$longitude[i]
+    toLat <- allLocs$latitude[i]
+    toLong <- allLocs$longitude[i]
+    loc <- allLocs$location[i]
+    labelIter <- paste0("L.swoopyArrow([",fromLat,",",fromLong,"], [",toLat,",",toLong,"], {label: '",loc,"', labelColor: '#ffffff', labelFontSize: 12, iconAnchor: [20, 10], iconSize: [20, 16], factor: 0.7, weight: 0}).addTo(this);")
+    #print(labelIter)
+    labels <- paste0(labels, labelIter)
+  }
+  
+  footer <- "}"
+  
+  renderText <- paste0(header, basemap, swoopys, labels, footer)
+  #renderText <- paste0(header, swoopys, labels, footer)
+  
+  output_map <- leaflet() %>%
+    addProviderTiles(providers$Esri.WorldImagery) %>% 
+    addScaleBar(position = "bottomleft") %>% 
+    setView(mean(data$Longitude.from), mean(data$Latitude.from), zoom = 5) %>%
+    registerleafletPlugin(esriPlugin) %>%
+    registerleafletPlugin(swoopyPlugin) %>% 
+    onRender(renderText)
+  
+  return(output_map)
+}
 
+### GLOBES
 ## Arrange in Grid
 unique(data$Model)
 ## Create Globes
@@ -93,6 +171,55 @@ w_dfl <- combineWidgets(title = "Filippo (Late)", dfl_globe, nrow = 1, ncol = 1)
 w_cur <- combineWidgets(title = "Currie", cur_globe, nrow = 1, ncol = 1)
 w_gro <- combineWidgets(title = "Grollemund", gro_globe, nrow = 1, ncol = 1)
 w_whi <- combineWidgets(title = "Whiteley", whi_globe, nrow = 1, ncol = 1)
+
+comparison_models <- combineWidgets(nrow = 2,ncol = 2,
+                                    w_dfe, w_dfl,
+                                    w_cur, w_gro)
+
+single_models <- combineWidgets(nrow = 2, ncol = 2,
+                                w_cult, w_lang,
+                                w_mtdna, w_ychr)
+
+
+new_models <- combineWidgets(nrow = 2, ncol = 1,
+                             w_comb, w_whi)
+
+## Combine Widgets into Grid
+combineWidgets(title = "Bantu Migration Models",
+               comparison_models, single_models, new_models,
+               nrow = 1, ncol = 3)
+
+
+################################
+## Using Leaflet + Swoopy
+library(htmltools)
+library(htmlwidgets)
+library(leaflet)
+
+## Create Globes
+combined_map <- create_model_map(data, model = "Combined")
+cult_map <- create_model_map(data, model = "Cultural")
+lang_map <- create_model_map(data, model = "Language")
+mtdna_map <- create_model_map(data, model = "Mitochondrial DNA")
+ychr_map <- create_model_map(data, model = "Y-Chromosomal")
+dfe_map <- create_model_map(data, model = "de Filippo et al., 2011 (\"Early Split\")",)
+dfl_map <- create_model_map(data, model = "de Filippo et al., 2011 (\"Late Split\")")
+cur_map <- create_model_map(data, model = "Currie et al., 2013")
+gro_map <- create_model_map(data, model = "Grollemund et al., 2015")
+whi_map <- create_model_map(data, model = "Whiteley et al., 2018")
+
+## Create Widgets of Globes
+library(manipulateWidget)
+w_comb <- combineWidgets(title = "Combined", combined_map, nrow = 1, ncol = 1)
+w_cult <- combineWidgets(title = "Cultural", cult_map, nrow = 1, ncol = 1)
+w_lang <- combineWidgets(title = "Language", lang_map, nrow = 1, ncol = 1)
+w_mtdna <- combineWidgets(title = "mtDNA", mtdna_map, nrow = 1, ncol = 1)
+w_ychr <- combineWidgets(title = "yChr", ychr_map, nrow = 1, ncol = 1)
+w_dfe <- combineWidgets(title = "Filippo (Early)", dfe_map, nrow = 1, ncol = 1)
+w_dfl <- combineWidgets(title = "Filippo (Late)", dfl_map, nrow = 1, ncol = 1)
+w_cur <- combineWidgets(title = "Currie", cur_map, nrow = 1, ncol = 1)
+w_gro <- combineWidgets(title = "Grollemund", gro_map, nrow = 1, ncol = 1)
+w_whi <- combineWidgets(title = "Whiteley", whi_map, nrow = 1, ncol = 1)
 
 comparison_models <- combineWidgets(nrow = 2,ncol = 2,
                                     w_dfe, w_dfl,
