@@ -133,12 +133,15 @@ create_model_map <- function(data, model, title = "", basemapLayer = "Imagery", 
   renderText <- paste0(header, basemap, swoopys, labels, footer)
   #renderText <- paste0(header, swoopys, labels, footer)
   
-  output_map <- leaflet() %>%
+  output_map <- leaflet(options = leafletOptions(attributionControl = FALSE,
+                                                 zoomControl = FALSE)) %>%
     addProviderTiles(providers$Esri.WorldImagery) %>% 
     addScaleBar(position = "bottomleft") %>% 
-    setView(mean(data$Longitude.from), mean(data$Latitude.from), zoom = 5) %>%
+    #setView(mean(data$Longitude.from), mean(data$Latitude.from), zoom = 5) %>%
+    setView(25.083107, -12.058123,  zoom = 4) %>% 
     registerleafletPlugin(esriPlugin) %>%
     registerleafletPlugin(swoopyPlugin) %>% 
+    removeScaleBar() %>%
     onRender(renderText)
   
   return(output_map)
@@ -198,15 +201,75 @@ library(leaflet)
 
 ## Create Globes
 combined_map <- create_model_map(data, model = "Combined")
+mapview::mapshot(combined_map,
+                 file = "combined_map.png",
+                 remove_controls = c("zoomControl", "layersControl", "homeButton", "scaleBar"),
+                 #vwidth = 1920, vheight = 1080,
+                 zoom = 3)
+
 cult_map <- create_model_map(data, model = "Cultural")
+mapview::mapshot(cult_map,
+                 file = "cult_map.png",
+                 remove_controls = c("zoomControl", "layersControl", "homeButton", "scaleBar"),
+                 #vwidth = 1920, vheight = 1080,
+                 zoom = 3)
+
 lang_map <- create_model_map(data, model = "Language")
+mapview::mapshot(lang_map,
+                 file = "lang_map.png",
+                 remove_controls = c("zoomControl", "layersControl", "homeButton", "scaleBar"),
+                 #vwidth = 1920, vheight = 1080,
+                 zoom = 3)
+
 mtdna_map <- create_model_map(data, model = "Mitochondrial DNA")
+mapview::mapshot(mtdna_map,
+                 file = "mtdna_map.png",
+                 remove_controls = c("zoomControl", "layersControl", "homeButton", "scaleBar"),
+                 #vwidth = 1920, vheight = 1080,
+                 zoom = 3)
+
 ychr_map <- create_model_map(data, model = "Y-Chromosomal")
+mapview::mapshot(ychr_map,
+                 file = "ychr_map.png",
+                 remove_controls = c("zoomControl", "layersControl", "homeButton", "scaleBar"),
+                 #vwidth = 1920, vheight = 1080,
+                 zoom = 3)
+
 dfe_map <- create_model_map(data, model = "de Filippo et al., 2011 (\"Early Split\")",)
+mapview::mapshot(dfe_map,
+                 file = "dfe_map.png",
+                 remove_controls = c("zoomControl", "layersControl", "homeButton", "scaleBar"),
+                 #vwidth = 1920, vheight = 1080,
+                 zoom = 3)
+
 dfl_map <- create_model_map(data, model = "de Filippo et al., 2011 (\"Late Split\")")
+mapview::mapshot(dfl_map,
+                 file = "dfl_map.png",
+                 remove_controls = c("zoomControl", "layersControl", "homeButton", "scaleBar"),
+                 #vwidth = 1920, vheight = 1080,
+                 zoom = 3)
+
 cur_map <- create_model_map(data, model = "Currie et al., 2013")
+mapview::mapshot(cur_map,
+                 file = "cur_map.png",
+                 remove_controls = c("zoomControl", "layersControl", "homeButton", "scaleBar"),
+                 #vwidth = 1920, vheight = 1080,
+                 zoom = 3)
+
 gro_map <- create_model_map(data, model = "Grollemund et al., 2015")
+mapview::mapshot(gro_map,
+                 file = "gro_map.png",
+                 remove_controls = c("zoomControl", "layersControl", "homeButton", "scaleBar"),
+                 #vwidth = 1920, vheight = 1080,
+                 zoom = 3)
+
 whi_map <- create_model_map(data, model = "Whiteley et al., 2018")
+mapview::mapshot(whi_map,
+                 file = "whi_map.png",
+                 remove_controls = c("zoomControl", "layersControl", "homeButton", "scaleBar"),
+                 #vwidth = 1920, vheight = 1080,
+                 zoom = 3)
+
 
 ## Create Widgets of Globes
 library(manipulateWidget)
