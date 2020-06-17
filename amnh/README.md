@@ -8,4 +8,4 @@ Ward C. Wheeler, Ph.D.
 
 ## Interactive Visualizations
 
-To view the interactive visualizations of the Bantu migration models, click [here]([https://public.tableau.com/profile/colbyford#!/vizhome/BantuMigration_AMNH/IntegrationofHeterogeneousDataintheAnalysisoftheBantuMigration?publish=yes](https://public.tableau.com/profile/colbyford#!/vizhome/BantuMigration_AMNH/IntegrationofHeterogeneousDataintheAnalysisoftheBantuMigration?publish=yes)).
+To view the interactive visualizations of the Bantu migration models, click [here](https://public.tableau.com/profile/colbyford#!/vizhome/BantuMigration_AMNH/IntegrationofHeterogeneousDataintheAnalysisoftheBantuMigration)
